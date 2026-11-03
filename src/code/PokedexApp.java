@@ -21,7 +21,7 @@ public class PokedexApp {
 
         Scanner input = new Scanner(System.in);
         boolean running = true;
-        while (running && input.hasNextLine()) {
+        while (running) {
             System.out.println("\n1. Search\n2. Add/update\n3. Remove\n4. Show buckets\n0. Exit");
             System.out.print("Choice: ");
             String choice = input.nextLine().trim();
