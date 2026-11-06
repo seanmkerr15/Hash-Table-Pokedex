@@ -6,7 +6,7 @@ public class PokedexApp {
 	
 	public static ChainingHashTable<String, Pokemon> pokedex = new ChainingHashTable<>(11);
 	
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
     	
         
         String filename = args.length == 0 ? "pokemon.csv" : args[0];
@@ -36,19 +36,62 @@ public class PokedexApp {
         }
     }
 
-    private static void searchPokemon(Scanner input) {
+     static void searchPokemon(Scanner input) {
         // TODO 1: Complete this menu action.
-        System.out.println("TODO: complete this action");
+    	System.out.println("Please enter a name: ");
+    	String choice = input.next().trim().toLowerCase();
+    	Pokemon p = pokedex.get(choice);
+    	if (p == null) {
+    		System.out.println("Not Found");
+    	}
+    	else {
+    		System.out.println("Found: " + p);
+    	}
+     
     }
 
     private static void addOrUpdatePokemon(Scanner input) {
-        // TODO 2: Complete this menu action.
-        System.out.println("TODO: complete this action");
+    	String name = "";
+    	while (name.isEmpty()) {
+    		System.out.println("Please enter the name of a Pokemon: ");
+    		name = PokemonLoader.normalizeName(input.next());
+    	}
+        //additional details to create pokemon.
+    	 int id = readNonNegativeInt(input, "Please enter the Pokemon ID: ");
+    	 int height = readNonNegativeInt(input, "Please enter the height: ");
+    	 int weight = readNonNegativeInt(input, "Please enter the weight: ");
+    	 int exp = readNonNegativeInt(input, "Please enter the base experience: ");
+    	 
+    	 //Checks if name existed(alike hashcodes have been dealt with in code)
+    	 boolean existed = pokedex.get(name) != null;
+    	    
+        Pokemon p = new Pokemon(id, name, height, weight, exp);
+        pokedex.insert(name, p);
+        
+        if (existed) {
+        	System.out.println(name + " has been updated");
+        	System.out.println(pokedex.get(name));
+        }
+        else {
+        	System.out.println(name + " has been added");
+        	System.out.println(pokedex.get(name));
+        }
+        
     }
 
     private static void removePokemon(Scanner input) {
-        // TODO 3: Complete this menu action.
-        System.out.println("TODO: complete this action");
+        System.out.println("Please input a Pokemon to remove: ");
+        String choice = input.next().trim().toLowerCase();
+        Pokemon p = pokedex.get(choice);
+        if (p == null) {
+        	System.out.println("Pokemon could not be found");
+        }
+        else {
+        	pokedex.remove(choice);
+        	System.out.println("Pokemon has successfully been removed.");
+        	
+        }
+        
     }
 
     // Provided: reads a non-negative integer using nextLine(), avoiding leftover newlines.
