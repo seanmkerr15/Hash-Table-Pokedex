@@ -80,7 +80,18 @@ public class ChainingHashTable<K, V> {
 
     // Print every bucket index and the keys in its chain, in order.
     public void printTable() {
-        // TODO 4: Traverse each bucket and print its keys.
-        System.out.println("TODO: printTable");
+        for(int i = 0; i < table.length; i++) {
+        	System.out.println(i + "\t");
+        	ChainingHashTableItem<K, V> item = table[i];
+        	if (item == null) {
+        		System.out.println("Null");
+        	}
+        	while (item != null) {
+        		System.out.println(item.key + " ");
+        		item = item.next;
+        	}
+        	System.out.println();
+        }
+       
     }
 }

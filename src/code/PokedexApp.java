@@ -52,9 +52,9 @@ public class PokedexApp {
 
     private static void addOrUpdatePokemon(Scanner input) {
     	String name = "";
-    	while (name.isEmpty()) {
+    	while (name.isEmpty() || !name.matches("[a-z]+")) {
     		System.out.println("Please enter the name of a Pokemon: ");
-    		name = PokemonLoader.normalizeName(input.next());
+    		name = PokemonLoader.normalizeName(input.nextLine());
     	}
         //additional details to create pokemon.
     	 int id = readNonNegativeInt(input, "Please enter the Pokemon ID: ");
